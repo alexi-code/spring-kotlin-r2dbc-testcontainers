@@ -1,0 +1,17 @@
+
+
+### Retrieve a list of certificates
+
+GET http://localhost:8080/api/certificate
+Accept: application/json
+
+### Retrieve a list of certificate types
+
+GET http://localhost:8080/api/certificate/type
+Accept: application/json
+
+### Retrieve a list of certificate bundles
+
+GET http://localhost:8080/api/certificate/bundle
+Accept: application/json
+

@@ -1,0 +1,16 @@
+version: '3.3'
+
+services:
+
+  matcher-db:
+    build:
+      context: .
+      dockerfile: postgresql-dockerfile
+    ports:
+      - 5435:5432
+    container_name: matcher_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: matcherDBUser
+      POSTGRES_PASSWORD: matcherDBPassword
+      POSTGRES_DB: matcherDBName

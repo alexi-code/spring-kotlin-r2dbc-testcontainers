@@ -1,0 +1,84 @@
+databaseChangeLog:
+  -  logicalFilePath: 20210724.1.init.yaml
+  -  changeSet:
+       id:  2021-07-24-1
+       author:  anukhov
+       changes:
+
+         # CERTIFICATE TABLE
+         -  createTable:
+              tableName:  certificate
+              columns:
+                -  column:
+                     name:  id
+                     type:  UUID
+                     defaultValueComputed: uuid_generate_v4()
+                     constraints:
+                       primaryKey:  true
+                       nullable:  false
+                -  column:
+                     name:  source_type
+                     type:  UUID
+                     constraints:
+                       nullable:  false
+                -  column:
+                     name:  name
+                     type:  VARCHAR(50)
+                     constraints:
+                       nullable: false
+
+        # TO PREVENT NON-EQUAL CERTIFICATES
+         -  addUniqueConstraint:
+              tableName: certificate
+              columnNames: source_type, name
+              constraintName: certificate_source_type_name
+
+         # CERTIFICATE BUNDLE
+         -  createTable:
+              tableName:  certificate_bundle
+              columns:
+                -  column:
+                     name:  id
+                     type:  UUID
+                     defaultValueComputed: uuid_generate_v4()
+                     constraints:
+                       primaryKey:  true
+                       nullable:  false
+                -  column:
+                     name:  certificate_id
+                     type:  UUID
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  quantity
+                     type:  int
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  issuedAt
+                     type:  TIMESTAMP WITHOUT TIME ZONE
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  issuedBy
+                     type:  VARCHAR(255)
+                     constraints:
+                       nullable: false
+
+         # SOURCE TYPE
+         -  createTable:
+              tableName:  certificate_source_type
+              columns:
+                -  column:
+                     name:  id
+                     type:  UUID
+                     defaultValueComputed: uuid_generate_v4()
+                     constraints:
+                       primaryKey:  true
+                       nullable:  false
+                -  column:
+                     name:  name
+                     type:  VARCHAR(50)
+                     constraints:
+                       nullable: false
+                       unique: true
